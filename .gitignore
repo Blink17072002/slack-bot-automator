@@ -1,0 +1,15 @@
+.env
+__pycache__/
+virtual
+claude_summary.txt
+debug_out.txt
+debug_sim.py
+debug_sim2.py
+bot.py
+scraped_news.txt
+sim_out.json
+system.log
+test_claude.py
+test_similarity.py
+test.py
+app/pipeline1.py

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Pipeline Admin</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>📰 News Pipeline Admin</h1>
+                <p>Manage sources and view pipeline runs.</p>
+            </div>
+            <div>
+                <form action="/trigger_run" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-success">▶ Run Pipeline Now</button>
+                </form>
+            </div>
+        </header>
+
+        <div class="card">
+            <h2>Add New Source</h2>
+            <form action="/sources" method="post" style="margin-top: 1rem;">
+                <div class="form-group">
+                    <input type="text" name="name" placeholder="Source Name (e.g. TechCrunch AI)" required>
+                    <input type="url" name="url" placeholder="URL (e.g. https://...)" required>
+                    <select name="source_type">
+                        <option value="rss">RSS Feed</option>
+                        <option value="html">HTML Website</option>
+                    </select>
+                    <button type="submit" class="btn">Add Source</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Active Sources</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>URL</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for source in sources %}
+                    <tr>
+                        <td>{{ source.name }}</td>
+                        <td><a href="{{ source.url }}" target="_blank">{{ source.url }}</a></td>
+                        <td>{{ source.source_type|upper }}</td>
+                        <td>
+                            {% if source.is_active %}
+                                <span class="badge badge-success">Active</span>
+                            {% else %}
+                                <span class="badge badge-danger">Inactive</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <form action="/sources/{{ source.id }}/delete" method="post" style="display:inline;">
+                                <button type="submit" class="btn btn-danger" style="padding: 0.25rem 0.5rem; font-size: 0.875rem;">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5" style="text-align: center; color: #64748b;">No sources configured yet.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Recent Pipeline Runs</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Started</th>
+                        <th>Status</th>
+                        <th>Scanned</th>
+                        <th>Summarized</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for run in runs %}
+                    <tr>
+                        <td>#{{ run.id }}</td>
+                        <td>{{ run.started_at.strftime('%Y-%m-%d %H:%M') if run.started_at else 'N/A' }}</td>
+                        <td>
+                            {% if run.status == 'success' %}
+                                <span class="badge badge-success">Success</span>
+                            {% elif run.status == 'started' %}
+                                <span class="badge">Running</span>
+                            {% else %}
+                                <span class="badge badge-danger">{{ run.status }}</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ run.items_scanned }}</td>
+                        <td>{{ run.items_summarized }}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5" style="text-align: center; color: #64748b;">No pipeline runs yet.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
