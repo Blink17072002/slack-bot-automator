@@ -2,9 +2,9 @@ name: Daily News Pipeline Trigger
 
 on:
   schedule:
-    # Run at 08:00 UTC every day. Treat this as UTC time.
-    - cron: '0 8 * * *'
-  # Allow manual triggering from the GitHub Actions tab
+    # Run at 07:00 UTC every day.
+    - cron: '0 7 * * *'
+  # Manual triggering from the GitHub Actions tab
   workflow_dispatch:
 
 jobs:
