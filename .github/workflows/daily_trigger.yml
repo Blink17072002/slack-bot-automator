@@ -1,0 +1,18 @@
+name: Daily News Pipeline Trigger
+
+on:
+  schedule:
+    # Run at 08:00 UTC every day. Treat this as UTC time.
+    - cron: '0 8 * * *'
+  # Allow manual triggering from the GitHub Actions tab
+  workflow_dispatch:
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call External Trigger Endpoint
+        run: |
+          echo "Triggering pipeline on Render..."
+          curl -X POST https://daily-news-bot-admin.onrender.com/trigger_run
+          echo "Trigger request sent."
