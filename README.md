@@ -1,13 +1,13 @@
 # Daily News Digest Bot
 
-## 🎥 Demo
+## Demo
 **Watch the video demo here:** [YouTube Demo](https://youtube.com/watch?v=zWADVuWoWws&feature=youtu.be)
 
 
-## 📖 Overview
+## Overview
 This application is an automated news aggregation and delivery pipeline. It continuously monitors and scrapes designated websites and RSS feeds (such as TechCrunch's AI category) to extract the latest news articles. Using Anthropic's Claude 3 API, it translates the raw scraped data into a concise, professional daily digest. Finally, it formats this digest and automatically publishes it to a predefined Slack channel at a scheduled time. Additionally, it offers a secure FastAPI admin dashboard where users can manually trigger pipeline runs, view recent pipeline executions, and manage the news sources.
 
-## 💻 Tech Stack
+## Tech Stack
 * **Backend Framework:** FastAPI (Python) - For building the API and admin dashboard.
 * **Database / ORM:** SQLAlchemy with PostgreSQL (via `pg8000`) - For storing sources and tracking pipeline runs.
 * **Caching & Storage:** Redis - To cache temporary scraping payload and track operations.
@@ -17,7 +17,7 @@ This application is an automated news aggregation and delivery pipeline. It cont
 * **Communication:** Slack SDK - For authenticating and sending formatted message blocks directly to Slack channels.
 * **Templating:** Jinja2 - For rendering the web admin UI.
 
-## 🚀 Business Value
+## Business Value
 **Information Overload & Team Alignment.**
 
 In fast-paced industries (like Artificial Intelligence and Tech), staying up to date with the latest trends takes significant time. Professionals often spend hours browsing disjointed news sources or miss out on critical updates. This bot solves that by acting as a virtual researcher:
@@ -25,7 +25,7 @@ In fast-paced industries (like Artificial Intelligence and Tech), staying up to 
 2. It brings the information directly into the team's primary communication hub (Slack), minimizing context switching.
 3. It guarantees the entire team receives curated, high-quality intel every day, fostering better strategic alignment and awareness with exactly zero manual effort.
 
-## 🛠️ Local Development Setup
+## Local Development Setup
 
 ### 1. Prerequisites
 Ensure you have Python 3.9+ installed and a PostgreSQL/Redis instance available.
